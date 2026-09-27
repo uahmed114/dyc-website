@@ -84,6 +84,14 @@ export const navMenu: NavItem[] = [
 ];
 
 // Flat list of top-level links (used by the footer).
+// ------------------------------------------------------------
+// PAGE HEADER PHOTOS — the photo shown beside the title at the top
+// of a page. null shows a labeled placeholder until you add one.
+// ------------------------------------------------------------
+export const pageHeroImages: Record<string, ImageField> = {
+  programs: null,
+};
+
 export const navLinks = navMenu.map(({ href, label }) => ({ href, label }));
 
 export type ImageField = string | null;
@@ -265,7 +273,10 @@ export type Program = {
   note: string;
   /** Destinations offering this field — shown as chips on the card. */
   countries: string[];
+  /** Photo at the top of the card. Leave null to show a placeholder. */
   image: ImageField;
+  /** What the placeholder asks for, until a photo is added. */
+  imageHint: string;
 };
 
 export const programs: Program[] = [
@@ -276,6 +287,7 @@ export const programs: Program[] = [
     note: "CSC eligible",
     countries: ["China"],
     image: null,
+    imageHint: "medical students in a lab or hospital",
   },
   {
     title: "Engineering",
@@ -284,6 +296,7 @@ export const programs: Program[] = [
     note: "CSC eligible",
     countries: ["China"],
     image: null,
+    imageHint: "engineering lab or workshop",
   },
   {
     title: "Business & MBA",
@@ -292,6 +305,7 @@ export const programs: Program[] = [
     note: "",
     countries: ["China", "Hungary"],
     image: null,
+    imageHint: "students in a lecture or seminar",
   },
   {
     title: "Computer Science",
@@ -300,6 +314,7 @@ export const programs: Program[] = [
     note: "",
     countries: ["China", "Hungary"],
     image: null,
+    imageHint: "students coding or in a computer lab",
   },
   {
     title: "Chinese Language",
@@ -308,6 +323,7 @@ export const programs: Program[] = [
     note: "",
     countries: ["China"],
     image: null,
+    imageHint: "language class or Chinese calligraphy",
   },
   {
     title: "Natural Sciences",
@@ -316,6 +332,7 @@ export const programs: Program[] = [
     note: "",
     countries: ["China"],
     image: null,
+    imageHint: "science lab or field work",
   },
 ];
 
