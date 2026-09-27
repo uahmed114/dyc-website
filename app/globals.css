@@ -1,0 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   THEME COLORS — edit these hex values to re-theme the entire
+   site. Every component reads color through the Tailwind names
+   in tailwind.config.ts (bg-jade, text-ink, border-line, etc.),
+   which all point back to these variables. Change a value here
+   once and it updates everywhere the color is used.
+   ============================================================ */
+:root {
+  --color-ink: #14231f; /* primary text */
+  --color-ink-soft: #3e4e48; /* secondary text */
+  --color-jade: #1f6f5c; /* primary brand color — buttons, links, icons */
+  --color-jade-deep: #154a3e; /* dark band backgrounds, button hover */
+  --color-gold: #c6912f; /* accent — scholarships, highlights */
+  --color-paper: #eff2ed; /* page background */
+  --color-paper-raised: #ffffff; /* card / panel background */
+  --color-line: #d6dcd3; /* borders, dividers */
+  --color-muted: #6e7c74; /* captions, labels */
+
+  /* Font stacks (files are self-hosted via @fontsource, see app/layout.tsx) */
+  --font-fraunces: "Fraunces Variable";
+  --font-public-sans: "Public Sans";
+  --font-plex-mono: "IBM Plex Mono";
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-fraunces), Georgia, serif;
+  text-wrap: balance;
+}
+
+.section-eyebrow {
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-jade);
+  font-weight: 600;
+}
