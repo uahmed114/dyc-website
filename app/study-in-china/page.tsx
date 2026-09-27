@@ -2,7 +2,8 @@ import PageHero from "@/components/PageHero";
 import SectionHeading from "@/components/SectionHeading";
 import CompareTable from "@/components/CompareTable";
 import ProcessList from "@/components/ProcessList";
-import { faqs } from "@/lib/content";
+import { faqs, pageHeroImages, chinaFacts } from "@/lib/content";
+import CampusGrid from "@/components/CampusGrid";
 import { PrimaryButton } from "@/components/Buttons";
 import FaqList from "@/components/FaqList";
 
@@ -15,6 +16,10 @@ export default function StudyInChinaPage() {
         eyebrow="Destination · East Asia"
         title="Study in China"
         body="Why thousands of Pakistani students choose China: affordable tuition, government scholarships, and internationally recognized degrees — without an IELTS requirement for most programs."
+        image={pageHeroImages.china}
+        imageAlt="University campus in China"
+        imageLabel="Photo: a Chinese university campus"
+        facts={chinaFacts}
       />
 
       <section className="bg-jade-deep">
@@ -29,7 +34,18 @@ export default function StudyInChinaPage() {
         </div>
       </section>
 
-      <section className="py-[84px]">
+      <section className="bg-paper-raised py-[84px]">
+        <div className="mx-auto max-w-[1180px] px-8">
+          <SectionHeading
+            eyebrow="Where You Could Study"
+            title="From the capital to the southwest."
+            body="A few of the cities our students study in. We place students at recognized universities all over China, not just these."
+          />
+          <CampusGrid country="China" />
+        </div>
+      </section>
+
+      <section className="border-t border-line py-[84px]">
         <div className="mx-auto max-w-[1180px] px-8">
           <SectionHeading
             eyebrow="Our Process"

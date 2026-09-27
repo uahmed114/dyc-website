@@ -90,7 +90,16 @@ export const navMenu: NavItem[] = [
 // ------------------------------------------------------------
 export const pageHeroImages: Record<string, ImageField> = {
   programs: "/images/westlake-uni.webp",
+  china: "/images/china.jpg",
 };
+
+// Key figures shown in the Study in China page header.
+export const chinaFacts = [
+  { label: "Tuition from", value: "~$2,000 / yr" },
+  { label: "Scholarships", value: "CSC · CPEC" },
+  { label: "IELTS", value: "Often not needed" },
+  { label: "Degrees", value: "HEC & WHO recognized" },
+];
 
 export const navLinks = navMenu.map(({ href, label }) => ({ href, label }));
 

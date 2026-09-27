@@ -13,9 +13,11 @@ type Props = {
   image?: ImageField;
   imageAlt?: string;
   imageLabel?: string;
+  /** Optional key figures shown under the intro in the split layout. */
+  facts?: { label: string; value: string }[];
 };
 
-export default function PageHero({ eyebrow, title, body, image, imageAlt, imageLabel }: Props) {
+export default function PageHero({ eyebrow, title, body, image, imageAlt, imageLabel, facts }: Props) {
   if (image === undefined) {
     return (
       <header className="border-b border-line py-16">
@@ -39,6 +41,16 @@ export default function PageHero({ eyebrow, title, body, image, imageAlt, imageL
             {title}
           </h1>
           {body && <p className="mt-5 max-w-[520px] text-lg text-ink-soft">{body}</p>}
+          {facts && facts.length > 0 && (
+            <dl className="mt-8 grid max-w-[520px] grid-cols-2 gap-px overflow-hidden rounded-card border border-line bg-line">
+              {facts.map((f) => (
+                <div key={f.label} className="bg-paper-raised px-4 py-3.5">
+                  <dt className="text-[11px] font-semibold uppercase tracking-wide text-muted">{f.label}</dt>
+                  <dd className="mt-1 font-mono text-[15px] font-semibold text-jade">{f.value}</dd>
+                </div>
+              ))}
+            </dl>
+          )}
         </div>
         <ImagePlaceholder
           src={image}
