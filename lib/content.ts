@@ -125,7 +125,7 @@ export const destinations: Destination[] = [
       "CSC & CPEC scholarships, up to full coverage",
       "MBBS, engineering, CS, business and more",
     ],
-    image: null,
+    image: "/images/china.jpg",
   },
   {
     slug: "hungary",
@@ -337,19 +337,19 @@ export const campuses: Campus[] = [
     city: "Beijing",
     country: "China",
     body: "Politics, HSK & science-focused universities",
-    image: null,
+    image: "/images/beijing.avif",
   },
   {
     city: "Shanghai",
     country: "China",
     body: "Business, MBA & finance-oriented programs",
-    image: null,
+    image: "/images/china.jpg",
   },
   {
     city: "Chengdu",
     country: "China",
     body: "Natural sciences & engineering campuses",
-    image: null,
+    image: "/images/chengdu.webp",
   },
 ];
 
