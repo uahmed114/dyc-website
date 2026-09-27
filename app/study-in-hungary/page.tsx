@@ -21,11 +21,11 @@ export default function StudyInHungaryPage() {
       <section className="py-[84px]">
         <div className="mx-auto grid max-w-[1180px] grid-cols-1 items-center gap-14 px-8 lg:grid-cols-2">
           <ImagePlaceholder
-            src={null}
+            src={hungary.image}
             alt="Budapest"
             label="Photo: Budapest skyline or university campus"
             dimensions="1000 × 700"
-            className="aspect-[10/7] w-full"
+            className="aspect-[10/7] w-full rounded-card"
           />
           <div>
             <SectionHeading

@@ -138,7 +138,7 @@ export const destinations: Destination[] = [
       "Tuition scholarships and housing support",
       "Work up to 30 hrs/week while studying",
     ],
-    image: null,
+    image: "/images/budapest.jpg",
     isNew: true,
   },
 ];
@@ -159,6 +159,8 @@ export const pathways = [
 ];
 
 export const hungary = {
+  // Main photo on the Study in Hungary page.
+  image: "/images/budapest.jpg" as ImageField,
   facts: [
     {
       title: "EU & Schengen",
@@ -329,7 +331,7 @@ export const campuses: Campus[] = [
     city: "Budapest",
     country: "Hungary",
     body: "Business, informatics & MBA in the EU",
-    image: null,
+    image: "/images/budapest.jpg",
   },
   {
     city: "Beijing",
