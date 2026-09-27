@@ -89,7 +89,7 @@ export const navMenu: NavItem[] = [
 // of a page. null shows a labeled placeholder until you add one.
 // ------------------------------------------------------------
 export const pageHeroImages: Record<string, ImageField> = {
-  programs: null,
+  programs: "/images/westlake-uni.webp",
 };
 
 export const navLinks = navMenu.map(({ href, label }) => ({ href, label }));
@@ -286,7 +286,7 @@ export const programs: Program[] = [
     fee: "$2,500",
     note: "CSC eligible",
     countries: ["China"],
-    image: null,
+    image: "/images/medical.png",
     imageHint: "medical students in a lab or hospital",
   },
   {
@@ -295,7 +295,7 @@ export const programs: Program[] = [
     fee: "$1,800",
     note: "CSC eligible",
     countries: ["China"],
-    image: null,
+    image: "/images/engineering2.jpg",
     imageHint: "engineering lab or workshop",
   },
   {
@@ -304,7 +304,7 @@ export const programs: Program[] = [
     fee: "$1,600",
     note: "",
     countries: ["China", "Hungary"],
-    image: null,
+    image: "/images/mba.png",
     imageHint: "students in a lecture or seminar",
   },
   {
@@ -313,7 +313,7 @@ export const programs: Program[] = [
     fee: "$2,000",
     note: "",
     countries: ["China", "Hungary"],
-    image: null,
+    image: "/images/compsci.jpg",
     imageHint: "students coding or in a computer lab",
   },
   {
@@ -322,7 +322,7 @@ export const programs: Program[] = [
     fee: "$900",
     note: "",
     countries: ["China"],
-    image: null,
+    image: "/images/language.jpg",
     imageHint: "language class or Chinese calligraphy",
   },
   {
@@ -331,7 +331,7 @@ export const programs: Program[] = [
     fee: "$1,500",
     note: "",
     countries: ["China"],
-    image: null,
+    image: "/images/nat-sci.webp",
     imageHint: "science lab or field work",
   },
 ];
