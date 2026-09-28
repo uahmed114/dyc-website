@@ -40,9 +40,9 @@ can't be appended to directly, so:
    ```powershell
    Invoke-RestMethod -Method Post -Uri "https://accounts.zoho.com/oauth/v2/token" -Body @{
      grant_type    = "authorization_code"
-     client_id     = "PASTE_CLIENT_ID"
-     client_secret = "PASTE_CLIENT_SECRET"
-     code          = "PASTE_CODE"
+     client_id     = "1000.GOWL3JZSDXAF0ENGVHK89ONOU3PKAK"
+     client_secret = "22c1779e2fd6d31587e22aedd506369b57a5caedac"
+     code          = "1000.20d0b8854b63b598cf0fda0c9e91881d.3bf8dec6add13f899fa04c1cb43a1551"
    }
    ```
 

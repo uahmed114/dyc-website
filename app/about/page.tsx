@@ -12,13 +12,13 @@ export default function AboutPage() {
       <PageHero
         eyebrow="About Us"
         title="Built by people who've done this before"
-        body="Drop Your Case exists to make one specific process less confusing: getting a Pakistani student into a Chinese university without wasting time, money, or a scholarship you were actually eligible for."
+        body="Applying to study abroad shouldn't feel like guesswork. Drop Your Case helps Pakistani students find the right university, build a strong application, and get through admissions and visas with one team beside them."
       />
 
       <section className="py-[84px]">
         <div className="mx-auto grid max-w-[1180px] grid-cols-1 gap-14 px-8 lg:grid-cols-2 lg:items-center">
           <ImagePlaceholder
-            src={null}
+            src="/images/islamabad.jpeg"
             alt="Drop Your Case team"
             label="Photo: team or office in Islamabad"
             dimensions="800 × 600"
