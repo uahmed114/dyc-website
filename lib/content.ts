@@ -101,6 +101,17 @@ export const chinaFacts = [
   { label: "Degrees", value: "HEC & WHO recognized" },
 ];
 
+// ------------------------------------------------------------
+// CONSULTATION FORM — dropdown options on the /apply form.
+// Submissions are written to the Zoho Sheet (see docs/ZOHO_SETUP.md).
+// ------------------------------------------------------------
+export const consultationForm = {
+  destinations: ["China", "Hungary", "Thailand or Armenia pathway", "Not sure yet"],
+  levels: ["Foundation year", "Bachelor's", "Master's", "MBA", "PhD", "Diploma", "Not sure yet"],
+  intakes: ["February 2027", "September 2027", "2028 or later", "Not sure yet"],
+  callTimes: ["Morning (9am–12pm PKT)", "Afternoon (12–5pm PKT)", "Evening (5–9pm PKT)", "Any time"],
+};
+
 export const navLinks = navMenu.map(({ href, label }) => ({ href, label }));
 
 export type ImageField = string | null;

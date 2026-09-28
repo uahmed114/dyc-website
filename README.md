@@ -77,9 +77,11 @@ lib/content.ts       all site copy, stats, and image paths
 public/images/       put your photos here
 ```
 
-The `apply` page's form is currently UI-only (it doesn't send anywhere
-yet) — wire its `<form>` up to an email service, CRM, or API route before
-launch.
+The "Book a Free Call" buttons open `/apply`, a consultation request form.
+Submissions go to `app/api/consultation/route.ts`, which appends a row to a
+Zoho Sheet in WorkDrive. Setup (credentials and spreadsheet):
+`docs/ZOHO_SETUP.md`. Dropdown options for the form live in
+`consultationForm` in `lib/content.ts`.
 
 ## Deploying
 

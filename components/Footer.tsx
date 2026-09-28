@@ -52,7 +52,7 @@ export default function Footer() {
               Blog
             </Link>
             <Link href="/apply" className="mb-2.5 block text-sm text-ink-soft hover:text-jade">
-              Apply Now
+              Book a consultation
             </Link>
             <Link href="/privacy" className="mb-2.5 block text-sm text-ink-soft hover:text-jade">
               Privacy Policy
