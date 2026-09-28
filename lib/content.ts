@@ -91,7 +91,7 @@ export const navMenu: NavItem[] = [
 export const pageHeroImages: Record<string, ImageField> = {
   programs: "/images/westlake-uni.webp",
   china: "/images/china.jpg",
-  scholarships: null,
+  scholarships: "/images/scholarships.jpg",
 };
 
 // Key figures shown in the Scholarships page header.
@@ -411,7 +411,7 @@ export type Testimonial = {
 export const testimonials: Testimonial[] = [
   {
     quote:
-      "I had no IELTS score and thought that ruled me out. DYC matched me to a CSC scholarship for MBBS within two months.",
+      "I had no IELTS score and thought that ruled me out for scholarships, but DYC matched me to a CSC scholarship for MBBS within two months. Covered about half of my tuition!",
     name: "Ayesha R.",
     role: "MBBS, Class of 2025",
     photo: null,
@@ -419,15 +419,15 @@ export const testimonials: Testimonial[] = [
   },
   {
     quote:
-      "They wrote my SOP, tracked my visa, and even briefed me on halal food near campus before I landed.",
+      "DYC helped write my SOP, tracked my visa, and even briefed me on halal food near campus before I landed.",
     name: "Hamza K.",
     role: "Computer Science",
     photo: null,
   },
   {
     quote:
-      "Full scholarship for my MBA — I paid nothing but my flight. The process page told me exactly what came next.",
-    name: "Sana M.",
+      "DYC helped me get a scholarship for my MBA, covered about 70% of my tuition! The process was easy and they basically just took my hand and walked me through each step.",
+    name: "Ali M.",
     role: "MBA, CPEC Scholarship",
     photo: null,
     scholarship: "CPEC scholarship · MBA",
