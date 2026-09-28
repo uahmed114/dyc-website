@@ -2,9 +2,9 @@ import PageHero from "@/components/PageHero";
 import SectionHeading from "@/components/SectionHeading";
 import ImagePlaceholder from "@/components/ImagePlaceholder";
 import PathwayJourney from "@/components/PathwayJourney";
-import FaqList from "@/components/FaqList";
+import FaqWithContact from "@/components/FaqWithContact";
 import { PrimaryButton } from "@/components/Buttons";
-import { hungary, hungaryFaqs, site } from "@/lib/content";
+import { hungary, hungaryFaqs } from "@/lib/content";
 import StudyLevels from "@/components/StudyLevels";
 import LivingCostBar from "@/components/LivingCostBar";
 import IntakeTimeline from "@/components/IntakeTimeline";
@@ -123,38 +123,12 @@ export default function StudyInHungaryPage() {
       </section>
 
       {/* FAQ */}
-      <section className="border-t border-line bg-paper-raised py-[84px]">
-        <div className="mx-auto grid max-w-[1180px] grid-cols-1 gap-12 px-8 lg:grid-cols-[1.6fr_1fr]">
-          <div>
-            <SectionHeading eyebrow="Frequently Asked" title="Questions about studying in Hungary." />
-            <FaqList items={hungaryFaqs} />
-          </div>
-          <aside className="self-start rounded-card border border-line bg-paper p-7 lg:sticky lg:top-28">
-            <h3 className="text-xl font-semibold text-jade">Still have questions?</h3>
-            <p className="mt-2 text-sm text-ink-soft">
-              Talk to a consultant. We&apos;ll answer anything about Hungary, the pathway routes or your
-              own chances, for free.
-            </p>
-            <div className="mt-5 flex flex-col gap-3">
-              <a
-                href={site.whatsappUrl}
-                className="flex items-center gap-3 rounded-lg border border-line bg-paper-raised p-3.5 text-sm font-semibold text-ink transition hover:border-jade"
-              >
-                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-jade/10 text-jade">↗</span>
-                WhatsApp {site.phone}
-              </a>
-              <a
-                href={`mailto:${site.email}`}
-                className="flex items-center gap-3 rounded-lg border border-line bg-paper-raised p-3.5 text-sm font-semibold text-ink transition hover:border-jade"
-              >
-                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-jade/10 text-jade">@</span>
-                {site.email}
-              </a>
-            </div>
-            <PrimaryButton className="mt-5 w-full justify-center">Book a Free Call →</PrimaryButton>
-          </aside>
-        </div>
-      </section>
+      <FaqWithContact
+        title="Questions about studying in Hungary."
+        items={hungaryFaqs}
+        blurb="Talk to a consultant. We'll answer anything about Hungary, the pathway routes or your own chances, for free."
+        className="bg-paper-raised"
+      />
 
       {/* CTA */}
       <section className="bg-jade-deep">
