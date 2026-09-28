@@ -11,6 +11,11 @@
 
 export const site = {
   name: "Drop Your Case",
+  // Logo files (trimmed, web-sized copies of "dyc logo.png" / "dyc logo only.png").
+  logo: {
+    mark: "/images/logo-mark.png", // icon only: nav bar
+    full: "/images/logo-full.png", // with "Drop Your Case / Dream | Drop | Depart": footer
+  },
   shortName: "DYC",
   tagline: "Your file, dropped at the right university.",
   description:
