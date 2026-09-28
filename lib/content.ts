@@ -185,15 +185,27 @@ export const destinations: Destination[] = [
 export const pathways = [
   {
     from: "Thailand",
+    city: "Bangkok",
     to: "Hungary",
     body: "Begin at a partner university in Thailand, then continue your studies in the EU.",
+    image: "/images/bangkok.jpg" as ImageField,
   },
   {
     from: "Armenia",
+    city: "Yerevan",
     to: "Hungary",
     body: "Start in Armenia and transfer onward to Budapest through a partner route.",
+    image: "/images/yerevan.jpg" as ImageField,
   },
 ];
+
+/** Where both pathway routes finish (shown as the large card on the Study in Hungary page). */
+export const pathwayFinish = {
+  country: "Hungary",
+  city: "Budapest",
+  body: "Complete your degree in the EU, with the same work rights and post-study options as students who start in Budapest.",
+  image: "/images/budapest2.jpg" as ImageField,
+};
 
 export const hungary = {
   // Main photo on the Study in Hungary page.
