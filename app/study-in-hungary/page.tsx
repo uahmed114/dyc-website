@@ -5,6 +5,9 @@ import PathwayRoutes from "@/components/PathwayRoutes";
 import FaqList from "@/components/FaqList";
 import { PrimaryButton } from "@/components/Buttons";
 import { hungary, hungaryFaqs } from "@/lib/content";
+import StudyLevels from "@/components/StudyLevels";
+import LivingCostBar from "@/components/LivingCostBar";
+import IntakeTimeline from "@/components/IntakeTimeline";
 
 export const metadata = { title: "Study in Hungary | Drop Your Case" };
 
@@ -71,28 +74,44 @@ export default function StudyInHungaryPage() {
 
       {/* Study areas */}
       <section id="study" className="scroll-mt-24 py-[84px]">
-        <div className="mx-auto grid max-w-[1180px] grid-cols-1 gap-12 px-8 lg:grid-cols-[1fr_1.1fr]">
+        <div className="mx-auto max-w-[1180px] px-8">
           <SectionHeading
             eyebrow="What You Can Study"
             title="Business, data and management, taught in English."
-            body="Full programme lists, entry requirements, fees and scholarship amounts depend on your background, so we go through them with you one to one."
+            body="Programmes at four levels. Entry requirements, fees and scholarship amounts depend on your background, so we go through them with you one to one."
           />
-          <ul className="flex flex-col border-t border-line">
-            {hungary.studyAreas.map((area) => (
-              <li
-                key={area}
-                className="flex items-start gap-3 border-b border-line py-4 text-[15px] text-ink"
-              >
-                <span className="mt-0.5 text-jade">→</span>
-                {area}
-              </li>
-            ))}
-          </ul>
+          <StudyLevels />
+        </div>
+      </section>
+
+      {/* Cost of living */}
+      <section id="costs" className="scroll-mt-24 bg-jade-deep">
+        <div className="mx-auto grid max-w-[1180px] grid-cols-1 items-center gap-12 px-8 py-[84px] lg:grid-cols-[1fr_1.2fr]">
+          <SectionHeading
+            eyebrow="Cost Of Living"
+            title="What a month in Budapest actually costs."
+            body="Budapest is one of the more affordable capitals in the EU. Students can also work up to 30 hours a week during term to help cover their living costs."
+            onDark
+            className="!mb-0"
+          />
+          <LivingCostBar />
+        </div>
+      </section>
+
+      {/* Intakes */}
+      <section id="intakes" className="scroll-mt-24 bg-paper-raised py-[84px]">
+        <div className="mx-auto max-w-[1180px] px-8">
+          <SectionHeading
+            eyebrow="Intakes"
+            title="Two start dates a year."
+            body="Classes start in February and September. Each has its own application window, and applying early leaves the most time for your visa."
+          />
+          <IntakeTimeline />
         </div>
       </section>
 
       {/* Pathways */}
-      <section id="pathways" className="scroll-mt-24 border-t border-line bg-paper-raised">
+      <section id="pathways" className="scroll-mt-24 border-t border-line">
         <div className="mx-auto grid max-w-[1180px] grid-cols-1 gap-12 px-8 py-[84px] lg:grid-cols-2">
           <SectionHeading
             eyebrow="Pathway Routes"
@@ -106,7 +125,7 @@ export default function StudyInHungaryPage() {
       </section>
 
       {/* FAQ */}
-      <section className="py-[84px]">
+      <section className="border-t border-line bg-paper-raised py-[84px]">
         <div className="mx-auto max-w-[820px] px-8">
           <SectionHeading eyebrow="Frequently Asked" title="Questions about studying in Hungary." />
           <FaqList items={hungaryFaqs} />

@@ -224,17 +224,62 @@ export const hungary = {
       body: "Graduates can apply for a 9-month job-search residence permit to look for work in Hungary.",
     },
   ],
-  studyAreas: [
-    "Foundation year (a route in if you don't yet meet bachelor's entry)",
-    "Business, marketing, finance & accounting",
-    "Human resource management",
-    "International business economics",
-    "Business informatics — data analysis & big data",
-    "Master's in marketing, and MBA",
-    "Post-graduate specialist diplomas",
-  ],
   livingCost: "€500–900",
   intakes: "February & September",
+
+  /** "What you can study" cards on the Study in Hungary page. */
+  levels: [
+    {
+      level: "Foundation year",
+      duration: "1 year",
+      note: "A route in if you don't yet meet bachelor's entry requirements.",
+      subjects: ["Business studies", "Business informatics"],
+    },
+    {
+      level: "Bachelor's",
+      duration: "3.5–4 years",
+      note: "Full degrees taught in English.",
+      subjects: [
+        "Commerce & marketing",
+        "Finance & accounting",
+        "HR management",
+        "Business administration",
+        "International business economics",
+        "Business informatics: data & big data",
+      ],
+    },
+    {
+      level: "Master's & MBA",
+      duration: "1–2 years",
+      note: "A pre-master semester is available if your bachelor's is in another field.",
+      subjects: ["Marketing strategy & innovation", "MBA"],
+    },
+    {
+      level: "Post-graduate diplomas",
+      duration: "1–2 years",
+      note: "Career-focused programmes for graduates.",
+      subjects: ["Marketing management", "Executive MBA", "IT programme design"],
+    },
+  ],
+
+  /** Typical monthly student budget in Budapest (EUR). mid sets each bar segment's width. */
+  livingCosts: [
+    { item: "Rent (shared flat)", range: "€200–300", mid: 250 },
+    { item: "Food", range: "€220–300", mid: 260 },
+    { item: "Other & going out", range: "~€150", mid: 150 },
+    { item: "Bills, internet & phone", range: "~€40", mid: 40 },
+    { item: "Transport (student pass)", range: "~€10", mid: 10 },
+  ],
+
+  /**
+   * Application windows for each intake. Months are 1–12. openYearOffset is
+   * the year the window opens relative to the intake (February's window opens
+   * the August before). Check these with the university each year.
+   */
+  intakeWindows: [
+    { intake: "February", intakeMonth: 2, opens: { month: 8, day: 14 }, closes: { month: 11, day: 15 }, openYearOffset: -1 },
+    { intake: "September", intakeMonth: 9, opens: { month: 1, day: 12 }, closes: { month: 6, day: 1 }, openYearOffset: 0 },
+  ],
 };
 
 export const comparisonTable = {
