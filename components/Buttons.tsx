@@ -1,8 +1,7 @@
 import Link from "next/link";
-import { site } from "@/lib/content";
 
 export function PrimaryButton({
-  href = site.whatsappUrl,
+  href = "/apply",
   children,
   className = "",
 }: {

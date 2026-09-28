@@ -1,10 +1,12 @@
 import { campuses } from "@/lib/content";
 import ImagePlaceholder from "./ImagePlaceholder";
 
-export default function CampusGrid() {
+export default function CampusGrid({ country }: { country?: string } = {}) {
+  const list = country ? campuses.filter((c) => c.country === country) : campuses;
+  const cols = list.length === 3 ? "sm:grid-cols-3" : "sm:grid-cols-2 lg:grid-cols-4";
   return (
-    <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-      {campuses.map((c) => (
+    <div className={`grid grid-cols-1 gap-5 ${cols}`}>
+      {list.map((c) => (
         <div key={c.city} className="overflow-hidden rounded-card border border-line bg-paper-raised">
           <ImagePlaceholder
             src={c.image}

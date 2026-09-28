@@ -3,6 +3,7 @@ import SectionHeading from "@/components/SectionHeading";
 import ProgramGrid from "@/components/ProgramGrid";
 import CampusGrid from "@/components/CampusGrid";
 import { PrimaryButton } from "@/components/Buttons";
+import { pageHeroImages } from "@/lib/content";
 
 export const metadata = { title: "Universities | Drop Your Case" };
 
@@ -13,6 +14,9 @@ export default function UniversitiesPage() {
         eyebrow="Universities"
         title="Programs & universities"
         body="Recognized universities across China, and English-taught programmes in Hungary — not a fixed list. Your best-fit school depends on your major, budget, and scholarship eligibility."
+        image={pageHeroImages.programs}
+        imageAlt="Students on a university campus"
+        imageLabel="Photo: students on a university campus"
       />
 
       <section id="fields" className="scroll-mt-24 bg-jade-deep">

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { navLinks, site } from "@/lib/content";
 
 export default function Footer() {
@@ -7,12 +8,15 @@ export default function Footer() {
       <div className="mx-auto max-w-[1180px] px-8">
         <div className="grid grid-cols-2 gap-10 pb-10 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <div>
-            <div className="mb-3.5 flex items-center gap-2 font-display text-xl font-bold text-ink">
-              <span className="flex h-[30px] w-[30px] items-center justify-center rounded-[7px] bg-gradient-to-br from-jade to-jade-deep text-sm font-bold text-white">
-                D
-              </span>
-              {site.name}
-            </div>
+            <Link href="/" className="mb-5 inline-block">
+              <Image
+                src={site.logo.full}
+                alt={site.name}
+                width={900}
+                height={611}
+                className="h-auto w-[170px]"
+              />
+            </Link>
             <p className="max-w-[260px] text-[13.5px] text-ink-soft">
               {site.address}
             </p>
@@ -52,7 +56,7 @@ export default function Footer() {
               Blog
             </Link>
             <Link href="/apply" className="mb-2.5 block text-sm text-ink-soft hover:text-jade">
-              Apply Now
+              Book a consultation
             </Link>
             <Link href="/privacy" className="mb-2.5 block text-sm text-ink-soft hover:text-jade">
               Privacy Policy

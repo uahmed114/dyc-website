@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { navMenu, site } from "@/lib/content";
 import { PrimaryButton } from "./Buttons";
 import MobileMenu from "./MobileMenu";
@@ -34,11 +35,16 @@ export default function Nav() {
       <div className="relative mx-auto flex max-w-[1180px] items-center justify-between gap-4 px-8 py-[18px] max-sm:px-4">
         <Link
           href="/"
-          className="flex items-center gap-2.5 font-display text-xl font-bold tracking-tight text-ink"
+          className="flex items-center gap-3 font-display text-xl font-bold tracking-tight text-ink"
         >
-          <span className="flex h-[30px] w-[30px] shrink-0 items-center justify-center rounded-[7px] bg-gradient-to-br from-jade to-jade-deep font-display text-sm font-bold text-white">
-            D
-          </span>
+          <Image
+            src={site.logo.mark}
+            alt=""
+            width={512}
+            height={349}
+            priority
+            className="h-9 w-auto shrink-0"
+          />
           {site.name}
         </Link>
 

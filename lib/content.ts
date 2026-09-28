@@ -11,6 +11,11 @@
 
 export const site = {
   name: "Drop Your Case",
+  // Logo files (trimmed, web-sized copies of "dyc logo.png" / "dyc logo only.png").
+  logo: {
+    mark: "/images/logo-mark.png", // icon only: nav bar
+    full: "/images/logo-full.png", // with "Drop Your Case / Dream | Drop | Depart": footer
+  },
   shortName: "DYC",
   tagline: "Your file, dropped at the right university.",
   description:
@@ -84,6 +89,43 @@ export const navMenu: NavItem[] = [
 ];
 
 // Flat list of top-level links (used by the footer).
+// ------------------------------------------------------------
+// PAGE HEADER PHOTOS — the photo shown beside the title at the top
+// of a page. null shows a labeled placeholder until you add one.
+// ------------------------------------------------------------
+export const pageHeroImages: Record<string, ImageField> = {
+  programs: "/images/westlake-uni.webp",
+  china: "/images/china.jpg",
+  scholarships: "/images/scholarships.jpg",
+};
+
+// Key figures shown in the Scholarships page header.
+export const scholarshipFacts = [
+  { label: "Coverage", value: "Up to 100% tuition" },
+  { label: "Eligibility check", value: "Free" },
+  { label: "China", value: "3 routes" },
+  { label: "Hungary", value: "2 routes" },
+];
+
+// Key figures shown in the Study in China page header.
+export const chinaFacts = [
+  { label: "Tuition from", value: "~$2,000 / yr" },
+  { label: "Scholarships", value: "CSC · CPEC" },
+  { label: "IELTS", value: "Often not needed" },
+  { label: "Degrees", value: "HEC & WHO recognized" },
+];
+
+// ------------------------------------------------------------
+// CONSULTATION FORM — dropdown options on the /apply form.
+// Submissions are written to the Zoho Sheet (see docs/ZOHO_SETUP.md).
+// ------------------------------------------------------------
+export const consultationForm = {
+  destinations: ["China", "Hungary", "Thailand or Armenia pathway", "Not sure yet"],
+  levels: ["Foundation year", "Bachelor's", "Master's", "MBA", "PhD", "Diploma", "Not sure yet"],
+  intakes: ["February 2027", "September 2027", "2028 or later", "Not sure yet"],
+  callTimes: ["Morning (9am–12pm PKT)", "Afternoon (12–5pm PKT)", "Evening (5–9pm PKT)", "Any time"],
+};
+
 export const navLinks = navMenu.map(({ href, label }) => ({ href, label }));
 
 export type ImageField = string | null;
@@ -125,7 +167,7 @@ export const destinations: Destination[] = [
       "CSC & CPEC scholarships, up to full coverage",
       "MBBS, engineering, CS, business and more",
     ],
-    image: null,
+    image: "/images/china.jpg",
   },
   {
     slug: "hungary",
@@ -138,7 +180,7 @@ export const destinations: Destination[] = [
       "Tuition scholarships and housing support",
       "Work up to 30 hrs/week while studying",
     ],
-    image: null,
+    image: "/images/budapest.jpg",
     isNew: true,
   },
 ];
@@ -148,17 +190,31 @@ export const destinations: Destination[] = [
 export const pathways = [
   {
     from: "Thailand",
+    city: "Bangkok",
     to: "Hungary",
     body: "Begin at a partner university in Thailand, then continue your studies in the EU.",
+    image: "/images/bangkok.jpg" as ImageField,
   },
   {
     from: "Armenia",
+    city: "Yerevan",
     to: "Hungary",
     body: "Start in Armenia and transfer onward to Budapest through a partner route.",
+    image: "/images/yerevan.jpg" as ImageField,
   },
 ];
 
+/** Where both pathway routes finish (shown as the large card on the Study in Hungary page). */
+export const pathwayFinish = {
+  country: "Hungary",
+  city: "Budapest",
+  body: "Complete your degree in the EU, with the same work rights and post-study options as students who start in Budapest.",
+  image: "/images/budapest2.jpg" as ImageField,
+};
+
 export const hungary = {
+  // Main photo on the Study in Hungary page.
+  image: "/images/budapest.jpg" as ImageField,
   facts: [
     {
       title: "EU & Schengen",
@@ -185,17 +241,62 @@ export const hungary = {
       body: "Graduates can apply for a 9-month job-search residence permit to look for work in Hungary.",
     },
   ],
-  studyAreas: [
-    "Foundation year (a route in if you don't yet meet bachelor's entry)",
-    "Business, marketing, finance & accounting",
-    "Human resource management",
-    "International business economics",
-    "Business informatics — data analysis & big data",
-    "Master's in marketing, and MBA",
-    "Post-graduate specialist diplomas",
-  ],
   livingCost: "€500–900",
   intakes: "February & September",
+
+  /** "What you can study" cards on the Study in Hungary page. */
+  levels: [
+    {
+      level: "Foundation year",
+      duration: "1 year",
+      note: "A route in if you don't yet meet bachelor's entry requirements.",
+      subjects: ["Business studies", "Business informatics"],
+    },
+    {
+      level: "Bachelor's",
+      duration: "3.5–4 years",
+      note: "Full degrees taught in English.",
+      subjects: [
+        "Commerce & marketing",
+        "Finance & accounting",
+        "HR management",
+        "Business administration",
+        "International business economics",
+        "Business informatics: data & big data",
+      ],
+    },
+    {
+      level: "Master's & MBA",
+      duration: "1–2 years",
+      note: "A pre-master semester is available if your bachelor's is in another field.",
+      subjects: ["Marketing strategy & innovation", "MBA"],
+    },
+    {
+      level: "Post-graduate diplomas",
+      duration: "1–2 years",
+      note: "Career-focused programmes for graduates.",
+      subjects: ["Marketing management", "Executive MBA", "IT programme design"],
+    },
+  ],
+
+  /** Typical monthly student budget in Budapest (EUR). mid sets each bar segment's width. */
+  livingCosts: [
+    { item: "Rent (shared flat)", range: "€200–300", mid: 250 },
+    { item: "Food", range: "€220–300", mid: 260 },
+    { item: "Other & going out", range: "~€150", mid: 150 },
+    { item: "Bills, internet & phone", range: "~€40", mid: 40 },
+    { item: "Transport (student pass)", range: "~€10", mid: 10 },
+  ],
+
+  /**
+   * Application windows for each intake. Months are 1–12. openYearOffset is
+   * the year the window opens relative to the intake (February's window opens
+   * the August before). Check these with the university each year.
+   */
+  intakeWindows: [
+    { intake: "February", intakeMonth: 2, opens: { month: 8, day: 14 }, closes: { month: 11, day: 15 }, openYearOffset: -1 },
+    { intake: "September", intakeMonth: 9, opens: { month: 1, day: 12 }, closes: { month: 6, day: 1 }, openYearOffset: 0 },
+  ],
 };
 
 export const comparisonTable = {
@@ -263,7 +364,10 @@ export type Program = {
   note: string;
   /** Destinations offering this field — shown as chips on the card. */
   countries: string[];
+  /** Photo at the top of the card. Leave null to show a placeholder. */
   image: ImageField;
+  /** What the placeholder asks for, until a photo is added. */
+  imageHint: string;
 };
 
 export const programs: Program[] = [
@@ -273,7 +377,8 @@ export const programs: Program[] = [
     fee: "$2,500",
     note: "CSC eligible",
     countries: ["China"],
-    image: null,
+    image: "/images/medical.png",
+    imageHint: "medical students in a lab or hospital",
   },
   {
     title: "Engineering",
@@ -281,7 +386,8 @@ export const programs: Program[] = [
     fee: "$1,800",
     note: "CSC eligible",
     countries: ["China"],
-    image: null,
+    image: "/images/engineering2.jpg",
+    imageHint: "engineering lab or workshop",
   },
   {
     title: "Business & MBA",
@@ -289,7 +395,8 @@ export const programs: Program[] = [
     fee: "$1,600",
     note: "",
     countries: ["China", "Hungary"],
-    image: null,
+    image: "/images/mba.png",
+    imageHint: "students in a lecture or seminar",
   },
   {
     title: "Computer Science",
@@ -297,7 +404,8 @@ export const programs: Program[] = [
     fee: "$2,000",
     note: "",
     countries: ["China", "Hungary"],
-    image: null,
+    image: "/images/compsci.jpg",
+    imageHint: "students coding or in a computer lab",
   },
   {
     title: "Chinese Language",
@@ -305,7 +413,8 @@ export const programs: Program[] = [
     fee: "$900",
     note: "",
     countries: ["China"],
-    image: null,
+    image: "/images/language.jpg",
+    imageHint: "language class or Chinese calligraphy",
   },
   {
     title: "Natural Sciences",
@@ -313,7 +422,8 @@ export const programs: Program[] = [
     fee: "$1,500",
     note: "",
     countries: ["China"],
-    image: null,
+    image: "/images/nat-sci.webp",
+    imageHint: "science lab or field work",
   },
 ];
 
@@ -329,25 +439,25 @@ export const campuses: Campus[] = [
     city: "Budapest",
     country: "Hungary",
     body: "Business, informatics & MBA in the EU",
-    image: null,
+    image: "/images/budapest.jpg",
   },
   {
     city: "Beijing",
     country: "China",
     body: "Politics, HSK & science-focused universities",
-    image: null,
+    image: "/images/beijing.avif",
   },
   {
     city: "Shanghai",
     country: "China",
     body: "Business, MBA & finance-oriented programs",
-    image: null,
+    image: "/images/china.jpg",
   },
   {
     city: "Chengdu",
     country: "China",
     body: "Natural sciences & engineering campuses",
-    image: null,
+    image: "/images/chengdu.webp",
   },
 ];
 
@@ -356,35 +466,44 @@ export type Testimonial = {
   name: string;
   role: string;
   photo: ImageField;
+  /** Set for scholarship winners; these also appear on the Scholarships page. */
+  scholarship?: string;
 };
 
 export const testimonials: Testimonial[] = [
   {
     quote:
-      "I had no IELTS score and thought that ruled me out. DYC matched me to a CSC scholarship for MBBS within two months.",
+      "I had no IELTS score and thought that ruled me out for scholarships, but DYC matched me to a CSC scholarship for MBBS within two months. Covered about half of my tuition!",
     name: "Ayesha R.",
     role: "MBBS, Class of 2025",
     photo: null,
+    scholarship: "CSC scholarship · MBBS",
   },
   {
     quote:
-      "They wrote my SOP, tracked my visa, and even briefed me on halal food near campus before I landed.",
+      "DYC helped write my SOP, tracked my visa, and even briefed me on halal food near campus before I landed.",
     name: "Hamza K.",
     role: "Computer Science",
     photo: null,
   },
   {
     quote:
-      "Full scholarship for my MBA — I paid nothing but my flight. The process page told me exactly what came next.",
-    name: "Sana M.",
+      "DYC helped me get a scholarship for my MBA, covered about 70% of my tuition! The process was easy and they basically just took my hand and walked me through each step.",
+    name: "Ali M.",
     role: "MBA, CPEC Scholarship",
     photo: null,
+    scholarship: "CPEC scholarship · MBA",
   },
 ];
+
+/** yes = covered, partial = partly covered or depends on the award, no = not included */
+export type CoverState = "yes" | "partial" | "no";
 
 export type Scholarship = {
   country: "China" | "Hungary";
   name: string;
+  /** Shown as the tick / half / dash badges on each card. */
+  covers: { tuition: CoverState; housing: CoverState; stipend: CoverState; insurance: CoverState };
   coverage: string;
   eligibility: string;
   bestFor: string;
@@ -394,20 +513,23 @@ export const scholarships: Scholarship[] = [
   {
     country: "China",
     name: "Chinese Government Scholarship (CSC)",
-    coverage: "Full or partial tuition, accommodation, and monthly stipend",
+    covers: { tuition: "yes", housing: "yes", stipend: "yes", insurance: "yes" },
+    coverage: "Full awards cover tuition, housing, a monthly stipend and medical insurance; partial awards cover some of these.",
     eligibility: "Strong academic record; varies by degree level and host university",
     bestFor: "Bachelor's, master's, and PhD applicants open to any field",
   },
   {
     country: "China",
     name: "CPEC Scholarship",
-    coverage: "Full or partial tuition, tied to CPEC-priority fields",
+    covers: { tuition: "yes", housing: "partial", stipend: "partial", insurance: "partial" },
+    coverage: "Full or partial tuition; other costs depend on the award. Tied to CPEC-priority fields.",
     eligibility: "Pakistani nationals; priority given to engineering & technical majors",
     bestFor: "Engineering, natural sciences, and technical program applicants",
   },
   {
     country: "China",
     name: "University-specific scholarships",
+    covers: { tuition: "partial", housing: "no", stipend: "no", insurance: "no" },
     coverage: "Varies — often a tuition discount or first-year waiver",
     eligibility: "Set individually by each university; typically merit-based",
     bestFor: "Students who don't qualify for CSC/CPEC but have strong grades",
@@ -415,6 +537,7 @@ export const scholarships: Scholarship[] = [
   {
     country: "Hungary",
     name: "Degree tuition scholarships",
+    covers: { tuition: "partial", housing: "no", stipend: "no", insurance: "no" },
     coverage: "A reduction on yearly tuition for eligible international students; amounts vary by programme",
     eligibility: "Assessed on your academic record at application",
     bestFor: "Bachelor's, master's, MBA and post-graduate diploma applicants",
@@ -422,6 +545,7 @@ export const scholarships: Scholarship[] = [
   {
     country: "Hungary",
     name: "Foundation year scholarship",
+    covers: { tuition: "yes", housing: "no", stipend: "no", insurance: "no" },
     coverage: "Tuition for the English-taught foundation year can be fully covered",
     eligibility: "Students who don't yet meet bachelor's entry requirements",
     bestFor: "A funded route into a bachelor's degree in Budapest",
