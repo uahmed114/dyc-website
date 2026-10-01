@@ -40,9 +40,9 @@ can't be appended to directly, so:
    ```powershell
    Invoke-RestMethod -Method Post -Uri "https://accounts.zoho.com/oauth/v2/token" -Body @{
      grant_type    = "authorization_code"
-     client_id     = "1000.GOWL3JZSDXAF0ENGVHK89ONOU3PKAK"
-     client_secret = "22c1779e2fd6d31587e22aedd506369b57a5caedac"
-     code          = "1000.20d0b8854b63b598cf0fda0c9e91881d.3bf8dec6add13f899fa04c1cb43a1551"
+     client_id     = "<your client ID>"
+     client_secret = "<your client secret>"
+     code          = "<the code from step 3>"
    }
    ```
 
@@ -51,16 +51,22 @@ can't be appended to directly, so:
 
 ## 3. Add the values to the site
 
-- **Locally:** copy `.env.example` to `.env.local` and fill it in, then restart
-  `npm run dev`. `.env.local` is ignored by git, so the secrets never get pushed.
-- **On Vercel:** Project → Settings → Environment Variables → add the same
-  keys, then redeploy.
+The form is handled by the Cloudflare Worker in `worker/`, so the secrets
+live there, not in the website build.
+
+- **Live:** from the `worker/` folder, run `npx wrangler secret put <NAME>`
+  for each of `ZOHO_CLIENT_ID`, `ZOHO_CLIENT_SECRET`, `ZOHO_REFRESH_TOKEN` and
+  `ZOHO_SHEET_RESOURCE_ID`, and paste the value when asked. The non-secret
+  settings (`ZOHO_DC`, `ZOHO_SHEET_WORKSHEET`, `ZOHO_SHEET_HEADER_ROW`) are in
+  `worker/wrangler.toml`.
+- **Locally:** copy `worker/.dev.vars.example` to `worker/.dev.vars` and fill
+  it in. It's ignored by git, so the secrets never get pushed.
 
 ## 4. Test
 
 Submit the form at `/apply`. A new row should appear in the Leads tab within a
-couple of seconds. If it doesn't, the terminal running `npm run dev` (or
-Vercel → Logs) shows the exact error from Zoho. The usual causes are a
+couple of seconds. If it doesn't, run `npm run logs` in `worker/` while you
+submit; it shows the exact error from Zoho. The usual causes are a
 header that doesn't match exactly, the wrong tab name, or the wrong data
 centre in `ZOHO_DC`.
 

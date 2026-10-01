@@ -47,7 +47,8 @@ design where a real photo belongs. To add one:
 3. Set its `image` (or `photo`) field to `/images/your-file-name.jpg`.
 
 That's it — the placeholder is replaced with the real photo automatically,
-resized and cropped by Next.js's image optimizer. See
+cropped to fit its spot. The site is a static export, so images aren't
+resized on the fly: save them at a sensible size. See
 `public/images/README.md` for recommended sizes per spot.
 
 ## Editing copy
@@ -78,32 +79,63 @@ public/images/       put your photos here
 ```
 
 The "Book a Free Call" buttons open `/apply`, a consultation request form.
-Submissions go to `app/api/consultation/route.ts`, which appends a row to a
-Zoho Sheet in WorkDrive. Setup (credentials and spreadsheet):
+Submissions go to a small Cloudflare Worker (`worker/src/index.ts`), which
+appends a row to a Zoho Sheet in WorkDrive. Setup (credentials and spreadsheet):
 `docs/ZOHO_SETUP.md`. Dropdown options for the form live in
 `consultationForm` in `lib/content.ts`.
 
 ## Deploying
 
-Your domain stays on Hostinger; only where the site is *hosted* changes
-from WordPress.
+The site is two pieces:
 
-**Easiest path — Vercel (recommended for Next.js):**
-1. Push this project to a GitHub repo.
-2. Import it at vercel.com — it detects Next.js automatically and builds/
-   deploys on every push.
-3. In Vercel, add `dropyourcase.com` as a custom domain.
-4. In Hostinger's DNS settings for the domain, update the records Vercel
-   gives you (usually an A record and a CNAME for `www`). Propagation
-   typically takes a few minutes to a few hours.
-5. Once it resolves, remove/replace the old WordPress hosting.
+- **The website**: a static export (`output: "export"` in `next.config.mjs`).
+  `npm run build` writes plain HTML/CSS/JS to `out/`, which is uploaded to
+  Hostinger. No Node.js needed, so it runs on the Premium plan.
+- **The form handler**: `worker/`, a Cloudflare Worker (free plan) that
+  receives `/apply` submissions and writes them to Zoho. It only accepts
+  posts from the origins in `ALLOWED_ORIGINS` in `worker/wrangler.toml`.
 
-**Alternative — keep everything on Hostinger:** if your Hostinger plan
-supports Node.js apps (Business/Cloud plans do), you can deploy this
-project directly there instead of moving to Vercel. The steps are more
-manual (uploading the build, configuring the Node app, restart on
-deploy), so Vercel is the simpler default unless you'd rather keep a
-single host.
+The domain, DNS and email all stay at Hostinger. Nothing about them changes.
+
+### First time: deploy the worker
+
+```bash
+cd worker
+npm install
+npx wrangler login            # opens a browser; free Cloudflare account
+npx wrangler secret put ZOHO_CLIENT_ID
+npx wrangler secret put ZOHO_CLIENT_SECRET
+npx wrangler secret put ZOHO_REFRESH_TOKEN
+npx wrangler secret put ZOHO_SHEET_RESOURCE_ID
+npm run deploy
+```
+
+`deploy` prints the worker's URL (`https://dyc-consultation.<name>.workers.dev`).
+Paste it into `.env.production` as `NEXT_PUBLIC_CONSULTATION_URL`. It's
+public, not a secret, so commit it.
+
+### Every time: build and upload the website
+
+1. `npm run build` (from the project root).
+2. In hPanel → **Files → File Manager**, open `public_html`.
+3. Upload the **contents** of `out/` (not the folder itself), replacing what's
+   there. Easiest: zip the contents of `out/`, upload the zip, then right-click
+   → Extract. `out/` includes the `.htaccess` that forces HTTPS, redirects
+   `www` to the bare domain, and serves the 404 page.
+
+Re-deploy the worker (`npm run deploy` in `worker/`) only when you change
+something under `worker/`.
+
+### Testing the form locally
+
+1. In `worker/`, copy `.dev.vars.example` to `.dev.vars`, fill it in, and run
+   `npm run dev` (serves on http://localhost:8787).
+2. In the project root, create `.env.development.local` containing
+   `NEXT_PUBLIC_CONSULTATION_URL=http://localhost:8787` and run `npm run dev`.
+   Use `.env.development.local`, not `.env.local`: `.env.local` also applies
+   to `npm run build` and would point the live site at your laptop.
+
+Submitting locally writes a real row to the Zoho Sheet.
 
 ## Partner universities and the disclaimer
 

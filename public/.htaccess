@@ -1,0 +1,11 @@
+# Hostinger (Apache/LiteSpeed) settings for the static Next.js export.
+
+RewriteEngine On
+
+# Always use HTTPS and the bare domain.
+RewriteCond %{HTTPS} off [OR]
+RewriteCond %{HTTP_HOST} ^www\. [NC]
+RewriteRule ^ https://dropyourcase.com%{REQUEST_URI} [L,R=301]
+
+ErrorDocument 404 /404.html
+

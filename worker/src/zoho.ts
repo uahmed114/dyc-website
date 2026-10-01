@@ -1,35 +1,39 @@
-// Server-only helpers for writing consultation requests into a Zoho Sheet.
-// Credentials come from environment variables (see .env.example and
-// docs/ZOHO_SETUP.md). Never import this file from a client component.
+// Helpers for writing consultation requests into a Zoho Sheet.
+// Credentials are Worker secrets (see worker/README.md and docs/ZOHO_SETUP.md).
 
-const DC = process.env.ZOHO_DC || "com"; // "com", "eu", "in", "com.au", ...
+export interface ZohoEnv {
+  ZOHO_DC?: string; // "com", "eu", "in", "com.au", ...
+  ZOHO_CLIENT_ID?: string;
+  ZOHO_CLIENT_SECRET?: string;
+  ZOHO_REFRESH_TOKEN?: string;
+  ZOHO_SHEET_RESOURCE_ID?: string;
+  ZOHO_SHEET_WORKSHEET?: string;
+  ZOHO_SHEET_HEADER_ROW?: string;
+}
 
 type CachedToken = { value: string; expiresAt: number };
+// Lives as long as the Worker instance, so warm requests skip the token refresh.
 let cached: CachedToken | null = null;
 
-export function zohoConfigured() {
+export function zohoConfigured(env: ZohoEnv) {
   return Boolean(
-    process.env.ZOHO_CLIENT_ID &&
-      process.env.ZOHO_CLIENT_SECRET &&
-      process.env.ZOHO_REFRESH_TOKEN &&
-      process.env.ZOHO_SHEET_RESOURCE_ID
+    env.ZOHO_CLIENT_ID && env.ZOHO_CLIENT_SECRET && env.ZOHO_REFRESH_TOKEN && env.ZOHO_SHEET_RESOURCE_ID
   );
 }
 
 /** Exchange the long-lived refresh token for a short-lived access token (cached ~55 min). */
-async function getAccessToken(): Promise<string> {
+async function getAccessToken(env: ZohoEnv): Promise<string> {
   if (cached && Date.now() < cached.expiresAt) return cached.value;
 
   const params = new URLSearchParams({
-    refresh_token: process.env.ZOHO_REFRESH_TOKEN!,
-    client_id: process.env.ZOHO_CLIENT_ID!,
-    client_secret: process.env.ZOHO_CLIENT_SECRET!,
+    refresh_token: env.ZOHO_REFRESH_TOKEN!,
+    client_id: env.ZOHO_CLIENT_ID!,
+    client_secret: env.ZOHO_CLIENT_SECRET!,
     grant_type: "refresh_token",
   });
-  const res = await fetch(`https://accounts.zoho.${DC}/oauth/v2/token`, {
+  const res = await fetch(`https://accounts.zoho.${env.ZOHO_DC || "com"}/oauth/v2/token`, {
     method: "POST",
     body: params,
-    cache: "no-store",
   });
   const text = await res.text();
   let data: { access_token?: string; expires_in?: number } = {};
@@ -50,23 +54,19 @@ async function getAccessToken(): Promise<string> {
  * Append one row to the worksheet. Keys must match the sheet's header row
  * exactly (row 1 by default); unknown keys are ignored by Zoho.
  */
-export async function addSheetRow(row: Record<string, string>) {
-  const token = await getAccessToken();
+export async function addSheetRow(env: ZohoEnv, row: Record<string, string>) {
+  const token = await getAccessToken(env);
   const body = new URLSearchParams({
     method: "worksheet.records.add",
-    worksheet_name: process.env.ZOHO_SHEET_WORKSHEET || "Leads",
-    header_row: process.env.ZOHO_SHEET_HEADER_ROW || "1",
+    worksheet_name: env.ZOHO_SHEET_WORKSHEET || "Leads",
+    header_row: env.ZOHO_SHEET_HEADER_ROW || "1",
     json_data: JSON.stringify([row]),
   });
-  const res = await fetch(
-    `https://sheet.zoho.${DC}/api/v2/${process.env.ZOHO_SHEET_RESOURCE_ID}`,
-    {
-      method: "POST",
-      headers: { Authorization: `Zoho-oauthtoken ${token}` },
-      body,
-      cache: "no-store",
-    }
-  );
+  const res = await fetch(`https://sheet.zoho.${env.ZOHO_DC || "com"}/api/v2/${env.ZOHO_SHEET_RESOURCE_ID}`, {
+    method: "POST",
+    headers: { Authorization: `Zoho-oauthtoken ${token}` },
+    body,
+  });
   const text = await res.text();
   let data: { status?: string } = {};
   try {

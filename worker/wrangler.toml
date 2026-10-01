@@ -1,0 +1,12 @@
+name = "dyc-consultation"
+main = "src/index.ts"
+compatibility_date = "2026-09-01"
+
+[vars]
+ALLOWED_ORIGINS = "https://dropyourcase.com,https://www.dropyourcase.com"
+ZOHO_DC = "com"
+ZOHO_SHEET_WORKSHEET = "Leads"
+ZOHO_SHEET_HEADER_ROW = "1"
+
+# Secrets are set with `npx wrangler secret put <NAME>`, never in this file:
+#   ZOHO_CLIENT_ID, ZOHO_CLIENT_SECRET, ZOHO_REFRESH_TOKEN, ZOHO_SHEET_RESOURCE_ID

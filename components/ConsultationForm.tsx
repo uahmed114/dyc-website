@@ -6,6 +6,9 @@ import { consultationForm, site } from "@/lib/content";
 
 type Status = "idle" | "sending" | "sent" | "error";
 
+// The Cloudflare Worker in worker/ that saves requests to the Zoho Sheet (set in .env.production / .env.local).
+const SUBMIT_URL = process.env.NEXT_PUBLIC_CONSULTATION_URL;
+
 const input =
   "w-full rounded-lg border border-line bg-paper px-3.5 py-2.5 text-sm font-normal text-ink outline-none transition focus:border-jade focus:ring-2 focus:ring-jade/15 placeholder:text-muted";
 const label = "flex flex-col gap-1.5 text-sm font-semibold text-ink";
@@ -47,7 +50,8 @@ export default function ConsultationForm() {
     const form = e.currentTarget;
     const payload = { ...Object.fromEntries(new FormData(form).entries()), ...tracking };
     try {
-      const res = await fetch("/api/consultation", {
+      if (!SUBMIT_URL) throw new Error("The form isn't connected yet. Please reach us on WhatsApp instead.");
+      const res = await fetch(SUBMIT_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),

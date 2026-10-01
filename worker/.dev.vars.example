@@ -1,0 +1,6 @@
+# Copy to .dev.vars (never commit it) for `npm run dev` in this folder.
+ALLOWED_ORIGINS=http://localhost:3000
+ZOHO_CLIENT_ID=
+ZOHO_CLIENT_SECRET=
+ZOHO_REFRESH_TOKEN=
+ZOHO_SHEET_RESOURCE_ID=
