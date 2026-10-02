@@ -6,6 +6,18 @@ import ProcessList from "@/components/ProcessList";
 import ProgramGrid from "@/components/ProgramGrid";
 import CampusGrid from "@/components/CampusGrid";
 import TestimonialGrid from "@/components/TestimonialGrid";
+import { pageMeta } from "@/lib/seo";
+
+export const metadata = {
+  ...pageMeta({
+    title: "Study in China & Europe for Pakistani Students",
+    description:
+      "Drop Your Case helps Pakistani students get into universities in China and Hungary: scholarships, documents and visas handled end to end. Often no IELTS needed.",
+    path: "/",
+  }),
+  // The full title, without the layout's "| Drop Your Case" suffix added twice.
+  title: { absolute: "Study in China & Europe for Pakistani Students | Drop Your Case" },
+};
 
 const checkIcon = (
   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">

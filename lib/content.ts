@@ -395,7 +395,7 @@ export const programs: Program[] = [
     fee: "$1,600",
     note: "",
     countries: ["China", "Hungary"],
-    image: "/images/mba.png",
+    image: "/images/mba.jpg",
     imageHint: "students in a lecture or seminar",
   },
   {

@@ -137,6 +137,17 @@ something under `worker/`.
 
 Submitting locally writes a real row to the Zoho Sheet.
 
+## SEO
+
+- Each page sets its search title and description with `pageMeta()` from
+  `lib/seo.tsx`. Keep titles under ~60 characters and descriptions under ~160.
+- `app/sitemap.ts` builds `/sitemap.xml`. **Add any new page to its list**;
+  blog posts are added automatically.
+- Old WordPress URLs are 301-redirected to their new equivalents in
+  `public/.htaccess`. If you rename or remove a page, add a redirect there.
+- Photos are served as-is (no on-the-fly resizing), so keep each one under
+  ~1600px wide and a few hundred KB.
+
 ## Partner universities and the disclaimer
 
 The site describes destinations and routes without naming partner

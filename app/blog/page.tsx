@@ -2,8 +2,14 @@ import Link from "next/link";
 import PageHero from "@/components/PageHero";
 import ImagePlaceholder from "@/components/ImagePlaceholder";
 import { blogPosts } from "@/lib/content";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata = { title: "Blog | Drop Your Case" };
+export const metadata = pageMeta({
+  title: "Study Abroad Blog for Pakistani Students",
+  description:
+    "Guides for Pakistani students on studying in China and Europe: IELTS requirements, CSC and CPEC scholarships, admissions and visas.",
+  path: "/blog/",
+});
 
 export default function BlogPage() {
   return (

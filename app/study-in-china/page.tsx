@@ -7,8 +7,14 @@ import { faqs, pageHeroImages, chinaFacts } from "@/lib/content";
 import CampusGrid from "@/components/CampusGrid";
 import { PrimaryButton } from "@/components/Buttons";
 import FaqWithContact from "@/components/FaqWithContact";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata = { title: "Study in China | Drop Your Case" };
+export const metadata = pageMeta({
+  title: "Study in China for Pakistani Students",
+  description:
+    "Study in China from Pakistan: English-taught MBBS, engineering, CS and business degrees, HEC & WHO recognized. CSC & CPEC scholarships, often no IELTS needed.",
+  path: "/study-in-china/",
+});
 
 export default function StudyInChinaPage() {
   return (

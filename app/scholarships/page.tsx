@@ -4,8 +4,14 @@ import ImagePlaceholder from "@/components/ImagePlaceholder";
 import ScholarshipCard, { CoverLegend } from "@/components/ScholarshipCard";
 import { PrimaryButton } from "@/components/Buttons";
 import { scholarships, pageHeroImages, scholarshipFacts, testimonials, campuses } from "@/lib/content";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata = { title: "Scholarships | Drop Your Case" };
+export const metadata = pageMeta({
+  title: "CSC & CPEC Scholarships for Pakistani Students",
+  description:
+    "CSC (Chinese Government) and CPEC scholarships for Pakistani students: what they cover, who qualifies, and how Drop Your Case helps you apply.",
+  path: "/scholarships/",
+});
 
 const cityPhoto = (city: string) => campuses.find((c) => c.city === city)?.image ?? null;
 

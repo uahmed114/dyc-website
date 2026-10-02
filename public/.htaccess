@@ -2,10 +2,30 @@
 
 RewriteEngine On
 
-# Always use HTTPS and the bare domain.
+# --- Old WordPress URLs -> new pages (301 = moved permanently, keeps Google ranking) ---
+# Listed before the HTTPS rule so each old link takes a single hop.
+RewriteRule ^mbbs-china-vs-pakistan/?$ https://dropyourcase.com/study-in-china/ [L,R=301,NC]
+RewriteRule ^chinese-universities-pakistani-students-no-ielts/?$ https://dropyourcase.com/blog/no-ielts-study-in-china/ [L,R=301,NC]
+RewriteRule ^pakistan-china-ai-scholarships-2026/?$ https://dropyourcase.com/scholarships/ [L,R=301,NC]
+RewriteRule ^csc-type-b-scholarship-2027-pakistan-guide/?$ https://dropyourcase.com/scholarships/ [L,R=301,NC]
+RewriteRule ^(visa-process|why-china)/?$ https://dropyourcase.com/study-in-china/ [L,R=301,NC]
+RewriteRule ^apply-now/?$ https://dropyourcase.com/apply/ [L,R=301,NC]
+RewriteRule ^about-us/?$ https://dropyourcase.com/about/ [L,R=301,NC]
+RewriteRule ^privacy-policy/?$ https://dropyourcase.com/privacy/ [L,R=301,NC]
+RewriteRule ^(category|tag|author)/ https://dropyourcase.com/blog/ [L,R=301,NC]
+
+# Old Yoast sitemaps (still submitted in Search Console) -> the new sitemap.
+RewriteRule ^(sitemap_index|wp-sitemap|(post|page|category|post_tag|author)-sitemap)\.xml$ https://dropyourcase.com/sitemap.xml [L,R=301,NC]
+
+# WordPress-only paths are gone for good (410 tells Google to drop them quickly).
+RewriteRule ^(wp-admin|wp-content|wp-includes|wp-json|feed|comments/feed)(/|$) - [G,NC]
+RewriteRule ^(wp-login\.php|xmlrpc\.php)$ - [G,NC]
+RewriteCond %{QUERY_STRING} (^|&)p=[0-9]+(&|$)
+RewriteRule ^$ https://dropyourcase.com/? [L,R=301]
+
+# --- Always use HTTPS and the bare domain ---
 RewriteCond %{HTTPS} off [OR]
 RewriteCond %{HTTP_HOST} ^www\. [NC]
 RewriteRule ^ https://dropyourcase.com%{REQUEST_URI} [L,R=301]
 
 ErrorDocument 404 /404.html
-

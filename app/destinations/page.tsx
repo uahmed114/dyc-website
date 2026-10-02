@@ -2,8 +2,14 @@ import PageHero from "@/components/PageHero";
 import SectionHeading from "@/components/SectionHeading";
 import DestinationGrid from "@/components/DestinationGrid";
 import { PrimaryButton } from "@/components/Buttons";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata = { title: "Destinations | Drop Your Case" };
+export const metadata = pageMeta({
+  title: "Where Pakistani Students Can Study Abroad",
+  description:
+    "Compare study destinations for Pakistani students: China, Hungary in the EU, and pathway routes through Thailand and Armenia. Find your fit in a free consultation.",
+  path: "/destinations/",
+});
 
 export default function DestinationsPage() {
   return (
