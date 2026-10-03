@@ -3,8 +3,14 @@ import SectionHeading from "@/components/SectionHeading";
 import ImagePlaceholder from "@/components/ImagePlaceholder";
 import { site } from "@/lib/content";
 import { PrimaryButton } from "@/components/Buttons";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata = { title: "About Us | Drop Your Case" };
+export const metadata = pageMeta({
+  title: "About Us",
+  description:
+    "Drop Your Case is an Islamabad-based education consultancy helping Pakistani students study in China and Europe, from choosing a university to getting the visa.",
+  path: "/about/",
+});
 
 export default function AboutPage() {
   return (

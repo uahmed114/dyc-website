@@ -8,8 +8,14 @@ import { hungary, hungaryFaqs } from "@/lib/content";
 import StudyLevels from "@/components/StudyLevels";
 import LivingCostBar from "@/components/LivingCostBar";
 import IntakeTimeline from "@/components/IntakeTimeline";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata = { title: "Study in Hungary | Drop Your Case" };
+export const metadata = pageMeta({
+  title: "Study in Hungary for Pakistani Students",
+  description:
+    "Study in Hungary, in the EU, from Pakistan: English-taught degrees, no IELTS certificate needed, and up to 30 hours a week of work while you study.",
+  path: "/study-in-hungary/",
+});
 
 export default function StudyInHungaryPage() {
   return (

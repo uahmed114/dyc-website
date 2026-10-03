@@ -1,8 +1,14 @@
 import PageHero from "@/components/PageHero";
 import ConsultationForm from "@/components/ConsultationForm";
 import { site } from "@/lib/content";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata = { title: "Book a Free Consultation | Drop Your Case" };
+export const metadata = pageMeta({
+  title: "Book a Free Consultation",
+  description:
+    "Book a free 15-minute consultation with Drop Your Case. Tell us your grades and goals, and a consultant will contact you within one business day.",
+  path: "/apply/",
+});
 
 const steps = [
   "Fill in the form: it takes about two minutes.",

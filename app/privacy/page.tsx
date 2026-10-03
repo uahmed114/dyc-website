@@ -1,7 +1,13 @@
 import PageHero from "@/components/PageHero";
 import { site } from "@/lib/content";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata = { title: "Privacy Policy | Drop Your Case" };
+export const metadata = pageMeta({
+  title: "Privacy Policy",
+  description:
+    "How Drop Your Case collects, uses and protects the personal information you share with us.",
+  path: "/privacy/",
+});
 
 const sections = [
   {

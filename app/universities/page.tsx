@@ -4,8 +4,14 @@ import ProgramGrid from "@/components/ProgramGrid";
 import CampusGrid from "@/components/CampusGrid";
 import { PrimaryButton } from "@/components/Buttons";
 import { pageHeroImages } from "@/lib/content";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata = { title: "Universities | Drop Your Case" };
+export const metadata = pageMeta({
+  title: "Universities & Programs in China and Europe",
+  description:
+    "MBBS, engineering, computer science, business and more: the programs and universities Drop Your Case matches Pakistani students into across China and Europe.",
+  path: "/universities/",
+});
 
 export default function UniversitiesPage() {
   return (
