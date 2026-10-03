@@ -1,3 +1,5 @@
+import { readFileSync } from "node:fs";
+import path from "node:path";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
@@ -13,7 +15,7 @@ export function generateStaticParams() {
 export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
   const post = blogPosts.find((p) => p.slug === params.slug);
   if (!post) return { title: "Blog" };
-  const meta = pageMeta({ title: post.title, description: post.excerpt, path: `/blog/${post.slug}/` });
+  const meta = pageMeta({ title: post.seoTitle ?? post.title, description: post.excerpt, path: `/blog/${post.slug}/` });
   return {
     ...meta,
     openGraph: {
@@ -61,15 +63,23 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
           dimensions="1200 × 630"
           className="mt-8 aspect-video w-full"
         />
-        <div className="mt-8 flex flex-col gap-5 text-[16px] leading-relaxed text-ink-soft">
-          {post.body.map((para, i) => (
-            <p key={i}>{para}</p>
-          ))}
-        </div>
+        {post.html ? (
+          // Our own article files (content/blog/), read at build time.
+          <div
+            className="post-body mt-8"
+            dangerouslySetInnerHTML={{ __html: readFileSync(path.join(process.cwd(), "content/blog", post.html), "utf8") }}
+          />
+        ) : (
+          <div className="mt-8 flex flex-col gap-5 text-[16px] leading-relaxed text-ink-soft">
+            {post.body?.map((para, i) => (
+              <p key={i}>{para}</p>
+            ))}
+          </div>
+        )}
         <div className="mt-12 rounded-card border border-line bg-paper-raised p-7 text-center">
-          <h3 className="text-lg font-bold text-jade">Have a question about your own case?</h3>
+          <h3 className="text-lg font-bold text-jade">{post.cta?.title ?? "Have a question about your own case?"}</h3>
           <p className="mt-2 text-sm text-ink-soft">
-            Get a free read on your eligibility in a 15-minute call.
+            {post.cta?.body ?? "Get a free read on your eligibility in a 15-minute call."}
           </p>
           <PrimaryButton className="mt-5">Book a Free Call →</PrimaryButton>
         </div>

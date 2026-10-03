@@ -555,14 +555,67 @@ export const scholarships: Scholarship[] = [
 export type BlogPost = {
   slug: string;
   title: string;
+  /** Title for Google results, if different from the on-page title. */
+  seoTitle?: string;
   excerpt: string;
   date: string;
   readTime: string;
   image: ImageField;
-  body: string[];
+  /** Short posts: one string per paragraph. */
+  body?: string[];
+  /** Long posts: an HTML file in content/blog/ (headings, lists, tables, callouts). */
+  html?: string;
+  /** Wording for the "book a call" card at the end of the post, if not the default. */
+  cta?: { title: string; body: string };
 };
 
+// Newest first: the blog page lists them in this order.
 export const blogPosts: BlogPost[] = [
+  {
+    slug: "pakistan-china-ai-scholarships-2026",
+    title: "Pakistan’s New AI Scholarships for China — What Students Need to Know in 2026",
+    seoTitle: "Pakistan's New AI Scholarships for China — What Students Need to Know",
+    excerpt:
+      "Pakistan and China just linked HEC scholarships to AI, robotics and Industry 4.0. Here's what this means for Pakistani students considering studying in China.",
+    date: "2026-06-17",
+    readTime: "5 min read",
+    image: null,
+    html: "pakistan-china-ai-scholarships-2026.html",
+    cta: {
+      title: "The window is open. Let’s make sure your application is ready.",
+      body: "We’ll review your academic profile, identify the right universities and scholarship route for your field, and map out exactly what needs to happen before your deadline. Free, no obligation.",
+    },
+  },
+  {
+    slug: "csc-type-b-scholarship-2027-pakistan-guide",
+    title: "CSC Type-B Scholarship 2027 — Start Preparing Now (Pakistani Students’ Guide)",
+    seoTitle: "CSC Type-B Scholarship 2027 — Complete Guide for Pakistani Students",
+    excerpt:
+      "The CSC 2026 deadline has passed. Here's exactly what Pakistani students should do right now to secure a fully funded CSC Type-B scholarship for 2027.",
+    date: "2026-06-11",
+    readTime: "5 min read",
+    image: null,
+    html: "csc-type-b-scholarship-2027-pakistan-guide.html",
+    cta: {
+      title: "Start your CSC 2027 preparation today",
+      body: "The earlier you begin, the stronger your application. Book a free consultation and we’ll map out exactly what your 2027 CSC journey looks like.",
+    },
+  },
+  {
+    slug: "csc-scholarship-guide-pakistani-students",
+    title: "CSC Scholarships 2027 for Pakistani Students",
+    seoTitle: "CSC Scholarship 2027: Complete Guide for Pakistani Students",
+    excerpt:
+      "Everything Pakistani students need to know about the Chinese Government CSC Scholarship — eligibility, deadlines, documents, and how to build a winning application.",
+    date: "2026-06-10",
+    readTime: "6 min read",
+    image: null,
+    html: "csc-scholarship-guide-pakistani-students.html",
+    cta: {
+      title: "Ready to build a competitive CSC application for 2027?",
+      body: "We’ll review your academic profile, confirm the right route and universities for your situation, and map out exactly what needs to happen before your deadline. Free, no obligation.",
+    },
+  },
   {
     slug: "no-ielts-study-in-china",
     title: "Do you really need IELTS to study in China?",
@@ -576,6 +629,28 @@ export const blogPosts: BlogPost[] = [
       "That said, a small number of highly competitive programs, and some scholarship tracks, do ask for proof of English proficiency. We check this against your specific shortlist during your first consultation, so there are no surprises later in the process.",
       "If you don't have IELTS and were worried it would rule you out entirely, it almost certainly won't — but it's worth confirming case by case before you invest time studying for a test you may not need.",
     ],
+  },
+  {
+    slug: "chinese-universities-pakistani-students-no-ielts",
+    title: "Top 10 Chinese Universities Accepting Pakistani Students Without IELTS",
+    seoTitle: "Top 10 Chinese Universities for Pakistanis No IELTS Required",
+    excerpt:
+      "No IELTS? No problem. Here are the top 10 Chinese universities accepting Pakistani students without IELTS with programs, fees, and scholarship options.",
+    date: "2026-05-11",
+    readTime: "7 min read",
+    image: "/images/blog/chinese-universities-no-ielts.jpg",
+    html: "chinese-universities-pakistani-students-no-ielts.html",
+  },
+  {
+    slug: "mbbs-china-vs-pakistan",
+    title: "MBBS in China vs Pakistan — Costs, Quality and Recognition Compared",
+    seoTitle: "MBBS in China vs Pakistan",
+    excerpt:
+      "Thinking about MBBS in China vs Pakistan? Compare tuition costs, admission requirements, degree recognition, and career prospects to make the right choice.",
+    date: "2026-05-11",
+    readTime: "9 min read",
+    image: "/images/blog/mbbs-china-vs-pakistan.jpg",
+    html: "mbbs-china-vs-pakistan.html",
   },
   {
     slug: "csc-vs-cpec-scholarships",

@@ -4,10 +4,9 @@ RewriteEngine On
 
 # --- Old WordPress URLs -> new pages (301 = moved permanently, keeps Google ranking) ---
 # Listed before the HTTPS rule so each old link takes a single hop.
-RewriteRule ^mbbs-china-vs-pakistan/?$ https://dropyourcase.com/study-in-china/ [L,R=301,NC]
-RewriteRule ^chinese-universities-pakistani-students-no-ielts/?$ https://dropyourcase.com/blog/no-ielts-study-in-china/ [L,R=301,NC]
-RewriteRule ^pakistan-china-ai-scholarships-2026/?$ https://dropyourcase.com/scholarships/ [L,R=301,NC]
-RewriteRule ^csc-type-b-scholarship-2027-pakistan-guide/?$ https://dropyourcase.com/scholarships/ [L,R=301,NC]
+# Blog posts moved from the site root to /blog/.
+RewriteRule ^(mbbs-china-vs-pakistan|chinese-universities-pakistani-students-no-ielts|pakistan-china-ai-scholarships-2026|csc-type-b-scholarship-2027-pakistan-guide)/?$ https://dropyourcase.com/blog/$1/ [L,R=301,NC]
+RewriteRule ^blog-csc-scholarship-guide-pakistani-students/?$ https://dropyourcase.com/blog/csc-scholarship-guide-pakistani-students/ [L,R=301,NC]
 RewriteRule ^(visa-process|why-china)/?$ https://dropyourcase.com/study-in-china/ [L,R=301,NC]
 RewriteRule ^apply-now/?$ https://dropyourcase.com/apply/ [L,R=301,NC]
 RewriteRule ^about-us/?$ https://dropyourcase.com/about/ [L,R=301,NC]
