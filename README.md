@@ -43,7 +43,8 @@ design where a real photo belongs. To add one:
 
 1. Drop the image file into `public/images/`.
 2. Open `lib/content.ts` and find the relevant entry (a program, a
-   campus city, a testimonial, a blog post, etc.).
+   campus city, a testimonial, etc.). Blog photos are added in the
+   blog admin instead (see below).
 3. Set its `image` (or `photo`) field to `/images/your-file-name.jpg`.
 
 That's it — the placeholder is replaced with the real photo automatically,
@@ -56,8 +57,9 @@ resized on the fly: save them at a sensible size. See
 Nearly all site copy — destinations (China, Hungary), pathway routes
 (Thailand/Armenia → Hungary), Hungary facts and FAQs, nav links, hero stats, the tuition comparison
 table, process steps, programs, campuses, testimonials, FAQs, scholarship
-info, and blog posts — lives in `lib/content.ts` as plain arrays and
-objects. Edit the text there rather than in the page files.
+info — lives in `lib/content.ts` as plain arrays and
+objects. Edit the text there rather than in the page files. Blog posts are
+the exception: see **Blog admin** below.
 
 ## Project structure
 
@@ -114,14 +116,29 @@ npm run deploy
 Paste it into `.env.production` as `NEXT_PUBLIC_CONSULTATION_URL`. It's
 public, not a secret, so commit it.
 
-### Every time: build and upload the website
+### Every time: automatic
 
-1. `npm run build` (from the project root).
-2. In hPanel → **Files → File Manager**, open `public_html`.
-3. Upload the **contents** of `out/` (not the folder itself), replacing what's
-   there. Easiest: zip the contents of `out/`, upload the zip, then right-click
-   → Extract. `out/` includes the `.htaccess` that forces HTTPS, redirects
-   `www` to the bare domain, and serves the 404 page.
+Every push to `main` (including posts published from the blog admin)
+triggers `.github/workflows/deploy.yml`. It builds the site and uploads the
+changed files to Hostinger over FTP. Watch it under the repo's **Actions**
+tab. It takes 2–3 minutes. To redeploy without a change, open **Actions →
+Deploy to Hostinger → Run workflow**.
+
+One-time setup, in GitHub → repo → **Settings → Secrets and variables →
+Actions**:
+
+- Secrets `FTP_SERVER`, `FTP_USERNAME`, `FTP_PASSWORD`, from hPanel →
+  **Files → FTP Accounts**.
+- Optional variable `FTP_SERVER_DIR` if the site's folder, as seen from that
+  FTP account, isn't `public_html/` (keep the trailing `/`).
+
+The first run uploads everything. It doesn't delete files it didn't upload,
+so clear the old WordPress files out of `public_html` before it (keep a
+backup). If the run fails to connect, change `protocol: ftps` to `ftp` in
+the workflow.
+
+Manual fallback: `npm run build`, then upload the **contents** of `out/` to
+`public_html` in hPanel's File Manager.
 
 Re-deploy the worker (`npm run deploy` in `worker/`) only when you change
 something under `worker/`.
@@ -136,6 +153,55 @@ something under `worker/`.
    to `npm run build` and would point the live site at your laptop.
 
 Submitting locally writes a real row to the Zoho Sheet.
+
+## Blog admin
+
+Posts are written at **dropyourcase.com/admin** (Sveltia CMS, free and
+open source). Each post is a Markdown file in `content/blog/`. Publishing
+commits it to `main`, and the deploy above puts it live in 2–3 minutes.
+
+- **Body:** rich-text editor with headings, bold and italic, links, lists,
+  quotes and images.
+- **Custom HTML:** paste your own HTML; it appears after the body. The
+  field's help text lists the ready-made styles (callout boxes, stat cards,
+  grids, tables) from `app/globals.css`.
+- **Images:** uploaded images are converted to WebP and shrunk to at most
+  1600px before they're saved to `public/images/blog/`.
+- **Drafts:** tick **Draft** to save a post without showing it on the site.
+- **Read time:** worked out automatically.
+- **Page address:** comes from the title the first time a post is saved.
+
+Settings: `public/admin/config.yml`. Loading posts for the site:
+`lib/blog.ts`.
+
+### One-time setup: signing in
+
+The quick way: on the admin's login screen choose **Sign In Using Access Token**.
+It links to GitHub with the right permissions pre-selected (Contents: read
+and write). Create the token and paste it in. Your browser remembers it.
+
+For a normal **Sign in with GitHub** button:
+
+1. Deploy Sveltia's sign-in helper to your Cloudflare account (free): the
+   "Deploy" button at https://github.com/sveltia/sveltia-cms-auth. Note the
+   worker's URL.
+2. GitHub → **Settings → Developer settings → OAuth Apps → New OAuth App**.
+   Homepage `https://dropyourcase.com`, callback URL
+   `<worker URL>/callback`. Copy the client ID and generate a client secret.
+3. In the worker's Cloudflare settings, add the variables `GITHUB_CLIENT_ID`,
+   `GITHUB_CLIENT_SECRET` (encrypted) and `ALLOWED_DOMAINS` =
+   `dropyourcase.com`.
+4. In `public/admin/config.yml`, uncomment `base_url` and set it to the
+   worker URL.
+
+Only GitHub accounts with write access to this repo can publish.
+
+### Trying the admin locally
+
+`npm run dev`, open http://localhost:3000/admin/index.html in Chrome or
+Edge and choose **Work with Local Repository**, then pick this folder.
+Changes are saved straight to `content/blog/`. Nothing is committed, and
+no sign-in is needed.
 
 ## SEO
 

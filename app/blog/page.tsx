@@ -1,7 +1,7 @@
 import Link from "next/link";
 import PageHero from "@/components/PageHero";
 import ImagePlaceholder from "@/components/ImagePlaceholder";
-import { blogPosts } from "@/lib/content";
+import { getPosts } from "@/lib/blog";
 import { pageMeta } from "@/lib/seo";
 
 export const metadata = pageMeta({
@@ -21,7 +21,7 @@ export default function BlogPage() {
       />
       <section className="py-[84px]">
         <div className="mx-auto grid max-w-[1180px] grid-cols-1 gap-8 px-8 md:grid-cols-2">
-          {blogPosts.map((post) => (
+          {getPosts().map((post) => (
             <Link
               key={post.slug}
               href={`/blog/${post.slug}`}

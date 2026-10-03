@@ -1,0 +1,41 @@
+# Builds the static site and uploads it to Hostinger whenever main changes,
+# including posts published from the blog admin (/admin).
+# One-time setup (repo → Settings → Secrets and variables → Actions):
+#   secrets FTP_SERVER, FTP_USERNAME, FTP_PASSWORD   (hPanel → Files → FTP Accounts)
+#   variable FTP_SERVER_DIR (optional, defaults to public_html/; must end in /)
+name: Deploy to Hostinger
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Never run two uploads at once; a newer publish waits for the current one.
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+      - run: npm run build
+
+      # Uploads only files that changed since the last deploy (tracked in
+      # .ftp-deploy-sync-state.json on the server) and removes ones that were deleted.
+      - uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          local-dir: ./out/
+          server-dir: ${{ vars.FTP_SERVER_DIR || 'public_html/' }}

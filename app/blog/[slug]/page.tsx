@@ -1,19 +1,18 @@
-import { readFileSync } from "node:fs";
-import path from "node:path";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import ImagePlaceholder from "@/components/ImagePlaceholder";
-import { blogPosts, site } from "@/lib/content";
+import { site } from "@/lib/content";
+import { getPost, getPosts } from "@/lib/blog";
 import { PrimaryButton } from "@/components/Buttons";
 import { JsonLd, SITE_URL, pageMeta } from "@/lib/seo";
 
 export function generateStaticParams() {
-  return blogPosts.map((post) => ({ slug: post.slug }));
+  return getPosts().map((post) => ({ slug: post.slug }));
 }
 
 export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
-  const post = blogPosts.find((p) => p.slug === params.slug);
+  const post = getPost(params.slug);
   if (!post) return { title: "Blog" };
   const meta = pageMeta({ title: post.seoTitle ?? post.title, description: post.excerpt, path: `/blog/${post.slug}/` });
   return {
@@ -28,7 +27,7 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
 }
 
 export default function BlogPostPage({ params }: { params: { slug: string } }) {
-  const post = blogPosts.find((p) => p.slug === params.slug);
+  const post = getPost(params.slug);
   if (!post) return notFound();
 
   return (
@@ -63,19 +62,8 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
           dimensions="1200 × 630"
           className="mt-8 aspect-video w-full"
         />
-        {post.html ? (
-          // Our own article files (content/blog/), read at build time.
-          <div
-            className="post-body mt-8"
-            dangerouslySetInnerHTML={{ __html: readFileSync(path.join(process.cwd(), "content/blog", post.html), "utf8") }}
-          />
-        ) : (
-          <div className="mt-8 flex flex-col gap-5 text-[16px] leading-relaxed text-ink-soft">
-            {post.body?.map((para, i) => (
-              <p key={i}>{para}</p>
-            ))}
-          </div>
-        )}
+        {/* Written by us in content/blog/ or the admin, so it's trusted HTML. */}
+        <div className="post-body mt-8" dangerouslySetInnerHTML={{ __html: post.html }} />
         <div className="mt-12 rounded-card border border-line bg-paper-raised p-7 text-center">
           <h3 className="text-lg font-bold text-jade">{post.cta?.title ?? "Have a question about your own case?"}</h3>
           <p className="mt-2 text-sm text-ink-soft">

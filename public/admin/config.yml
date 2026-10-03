@@ -1,0 +1,106 @@
+# Blog admin (Sveltia CMS) at dropyourcase.com/admin.
+# Publishing commits to GitHub; .github/workflows/deploy.yml then rebuilds the
+# site and uploads it to Hostinger. Docs: https://sveltiacms.app/en/docs
+
+backend:
+  name: github
+  repo: uahmed114/dyc-website
+  branch: main
+  # "Sign in with GitHub" button. Until this is set, use "Sign In Using Access Token".
+  # See README → Blog admin → One-time setup.
+  # base_url: https://sveltia-cms-auth.<your-subdomain>.workers.dev
+  commit_messages:
+    create: "Blog: add {{slug}}"
+    update: "Blog: update {{slug}}"
+    delete: "Blog: delete {{slug}}"
+    uploadMedia: "Blog: upload {{path}}"
+    deleteMedia: "Blog: delete {{path}}"
+
+site_url: https://dropyourcase.com
+display_url: https://dropyourcase.com
+logo_url: /images/logo-mark.png
+
+media_folder: public/images/blog
+public_folder: /images/blog
+
+media_libraries:
+  all:
+    slugify_filename: true
+    # The site doesn't resize images on the fly, so shrink uploads here.
+    transformations:
+      raster_image:
+        format: webp
+        quality: 80
+        width: 1600
+        height: 1600
+
+collections:
+  - name: blog
+    label: Blog posts
+    label_singular: Blog post
+    folder: content/blog
+    extension: md
+    format: frontmatter
+    create: true
+    slug: "{{slug}}"
+    identifier_field: title
+    summary: "{{title}} · {{date}}"
+    sortable_fields: [date, title]
+    preview_path: blog/{{slug}}/
+    fields:
+      - label: Title
+        name: title
+        widget: string
+        hint: The page address is made from this when you first save, and doesn't change if you edit the title later.
+      - label: Google title
+        name: seoTitle
+        widget: string
+        required: false
+        hint: Optional. The title shown in Google results if it should differ from the headline. Keep under ~45 characters (" | Drop Your Case" is added).
+      - label: Summary
+        name: excerpt
+        widget: text
+        hint: One or two sentences, under 160 characters. Shown on the blog page and as the Google description.
+      - label: Date
+        name: date
+        widget: datetime
+        type: date
+        default: "{{now}}"
+      - label: Cover image
+        name: image
+        widget: image
+        required: false
+        hint: Landscape, ideally 1200 × 630. Without one, a placeholder box shows.
+      - label: Draft
+        name: draft
+        widget: boolean
+        default: false
+        hint: Drafts are saved but not shown on the website.
+      - label: Body
+        name: body
+        widget: markdown
+        required: false
+        hint: Write and format here. For a table, switch the editor to Markdown mode and type rows like "| Factor | China |", or paste an HTML table into Custom HTML.
+      - label: Custom HTML
+        name: html
+        widget: code
+        default_language: html
+        allow_language_selection: false
+        output_code_only: true
+        required: false
+        hint: >-
+          Optional. Paste HTML here; it appears after the Body. Ready-made styles:
+          <div class="callout callout-intro">, callout-warning, callout-tip, callout-dark;
+          stat cards: <div class="post-stats"><div class="post-stat"><div class="post-stat-number">$1B</div><div class="post-stat-label">…</div></div></div>;
+          grid: <div class="post-fields"><div class="post-field"><strong>Title</strong>Text</div></div>;
+          tables: wrap in <div class="post-table">.
+          A pasted <style> block affects the whole website, so prefer these classes.
+      - label: End-of-post box title
+        name: ctaTitle
+        widget: string
+        required: false
+        hint: Optional. Replaces "Have a question about your own case?" above the Book a Free Call button.
+      - label: End-of-post box text
+        name: ctaBody
+        widget: text
+        required: false

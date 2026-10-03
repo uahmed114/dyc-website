@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { blogPosts } from "@/lib/content";
+import { getPosts } from "@/lib/blog";
 import { SITE_URL } from "@/lib/seo";
 
 // Generated at build time as /sitemap.xml. Add new pages here.
@@ -19,6 +19,6 @@ const pages = [
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     ...pages.map((path) => ({ url: `${SITE_URL}${path}` })),
-    ...blogPosts.map((post) => ({ url: `${SITE_URL}/blog/${post.slug}/`, lastModified: post.date })),
+    ...getPosts().map((post) => ({ url: `${SITE_URL}/blog/${post.slug}/`, lastModified: post.date })),
   ];
 }

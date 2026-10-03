@@ -202,3 +202,13 @@ h3 {
   display: block;
   color: var(--color-jade);
 }
+.post-body img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+}
+.post-body blockquote {
+  border-left: 4px solid var(--color-line);
+  padding-left: 1rem;
+  font-style: italic;
+}
