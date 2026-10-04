@@ -130,6 +130,14 @@ export const navLinks = navMenu.map(({ href, label }) => ({ href, label }));
 
 export type ImageField = string | null;
 
+// Photo at the top of the home page's hero card.
+export const heroPhoto = {
+  src: "/images/students-campus.jpg",
+  alt: "Students on campus",
+  width: 612,
+  height: 323,
+};
+
 export const heroStats = [
   { label: "Destinations", value: "China · Hungary (EU)", accent: "jade" as const },
   { label: "Scholarships", value: "In both countries", accent: "gold" as const },
